@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
+import { GUI } from "dat.gui";
 
 const scene = new THREE.Scene();
 
@@ -36,8 +37,21 @@ function onWindowResize() {
   // render();
 }
 
+// stats panel: show number of frames that were loaded per seconds
 const stats = new Stats();
 document.body.appendChild(stats.dom);
+
+// dat gui panel:
+const gui = new GUI();
+const cubeFolder = gui.addFolder("Cube"); // group in cubeFolder --> collapse
+cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2);
+cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2);
+cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2);
+// cubeFolder.open();
+
+const cameraFolder = gui.addFolder("Camera");
+cameraFolder.add(camera.position, "z", 0, 10);
+cameraFolder.open();
 
 function animate() {
   requestAnimationFrame(animate);
